@@ -26,10 +26,10 @@
             recommendedSwipeElement.remove();
         }
         // grid
-        const videoCardSkeletonElement = document.querySelector('div.bili-video-card__skeleton');
-        if (videoCardSkeletonElement) {
-            videoCardSkeletonElement.remove();
-        }
+        // const videoCardSkeletonElement = document.querySelector('div.bili-video-card__skeleton');
+        // if (videoCardSkeletonElement) {
+        //     videoCardSkeletonElement.remove();
+        // }
         // grid封面
         const cardImageElement = document.querySelector('div.bili-video-card__image.__scale-player-wrap');
         if (cardImageElement) {
@@ -54,6 +54,17 @@
         const videoCardInfoIconTextElement = document.querySelector('div.bili-video-card__info--icon-text');
         if (videoCardInfoIconTextElement) {
             videoCardInfoIconTextElement.remove();
+        }
+
+        // 页面滑动板块
+        const channelSwiperElement = document.querySelector('div.channel-swiper.channel-swiper-client');
+        if (channelSwiperElement) {
+            channelSwiperElement.remove();
+        }
+        // 热门
+        const asideWrapElement = document.querySelector('div.aside-wrap');
+        if (asideWrapElement) {
+            asideWrapElement.remove();
         }
 
 
