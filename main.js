@@ -2,6 +2,8 @@
 // @author       github.com/jerryshell
 // @match        *://*.bilibili.com/*
 
+
+//---------------------
 (() => {
     'use strict';
     new MutationObserver(() => {
