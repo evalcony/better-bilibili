@@ -8,6 +8,14 @@
     'use strict';
     new MutationObserver(() => {
 
+        // black words list
+        var blackList = [
+            '队友','巅峰','对局','页游','国服','国标','压迫','大仙','破防','好看','好听','打野','逆风','射手','下头','戒','！',
+            '？','上头','尴尬','粉丝','哈哈','手法','逆风','逆境','王者','天花板','高端局','撞车','心理学','战力',"“",'新皮肤',
+            '国一','啦','阎王','绝望','教官','爸爸','儿子','一整天','消失','偷偷','新皮肤','天秀','对抗路'
+        ];
+
+
         // 动态、热门、频道
         const channelIconsElement = document.querySelector('div.channel-icons');
         if (channelIconsElement) {
@@ -27,27 +35,23 @@
         if (recommendedSwipeElement) {
             recommendedSwipeElement.remove();
         }
-        // grid
+        // // grid
         // const videoCardSkeletonElement = document.querySelector('div.bili-video-card__skeleton');
         // if (videoCardSkeletonElement) {
         //     videoCardSkeletonElement.remove();
         // }
-        // grid封面
-        const cardImageElement = document.querySelector('div.bili-video-card__image.__scale-player-wrap');
-        if (cardImageElement) {
-            cardImageElement.remove();
-        }
+        // // grid封面
+        // const cardImageElement = document.querySelector('div.bili-video-card__image.__scale-player-wrap');
+        // if (cardImageElement) {
+        //     cardImageElement.remove();
+        // }
+
         // 直播card
         const floorCardSingleCardElement = document.querySelector('div.floor-card.single-card');
         if (floorCardSingleCardElement) {
             floorCardSingleCardElement.remove();
         }
-        const videoCardInfoElement = document.querySelector('div.bili-video-card__skeleton--info');
-        if (videoCardInfoElement) {
-            videoCardInfoElement.remove();
-        }
         // 直播card
-        //class="bili-live-card is-rcmd"
         const liveCardElement = document.querySelector('div.bili-live-card');
         if (liveCardElement) {
             liveCardElement.remove();
@@ -67,6 +71,41 @@
         const asideWrapElement = document.querySelector('div.aside-wrap');
         if (asideWrapElement) {
             asideWrapElement.remove();
+        }
+
+        
+        // 根据屏蔽词过滤grid
+        const cardInfoElementList = document.querySelectorAll('div.bili-video-card')
+        if (cardInfoElementList) {
+            cardInfoElementList.forEach(card => {
+                var innerCard = card.querySelector('div.bili-video-card__info--right')
+                var links = innerCard.getElementsByTagName('a')
+                for (var i = 0; i < links.length; i++) {
+                    var title = links[i].textContent || links[i].innerText;
+                    var flag = false;
+                    for (var j = 0; j < blackList.length; ++j) {
+                        if (title.indexOf(blackList[j]) !== -1) {
+                            console.log("包含指定字符串:" + blackList[j]);
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (flag) {
+                        card.remove();
+                        break;
+                    }
+                    // 标题缩减
+                    if (title.length > 15) {
+                        links[i].innerHTML = title.substring(0,15)
+                    }
+                }
+                // 广告
+                var svg = card.querySelector('svg.bili-video-card__info--ad')
+                if (svg) {
+                    card.remove();
+                }
+
+            })
         }
 
 
