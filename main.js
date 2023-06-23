@@ -30,11 +30,6 @@
         if (videoCardSkeletonElement) {
             videoCardSkeletonElement.remove();
         }
-        // 首页grid播放视频
-        const playerAreaElement = document.querySelector('div.bpx-player-primary-area');
-        if (playerAreaElement) {
-            playerAreaElement.remove();
-        }
         // grid封面
         const cardImageElement = document.querySelector('div.bili-video-card__image.__scale-player-wrap');
         if (cardImageElement) {
