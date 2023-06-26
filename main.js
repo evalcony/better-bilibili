@@ -73,30 +73,34 @@
             asideWrapElement.remove();
         }
 
-        
-        // 根据屏蔽词过滤grid
+	// 根据屏蔽词过滤grid
         const cardInfoElementList = document.querySelectorAll('div.bili-video-card')
         if (cardInfoElementList) {
             cardInfoElementList.forEach(card => {
-                var innerCard = card.querySelector('div.bili-video-card__info--right')
-                var links = innerCard.getElementsByTagName('a')
-                for (var i = 0; i < links.length; i++) {
-                    var title = links[i].textContent || links[i].innerText;
-                    var flag = false;
-                    for (var j = 0; j < blackList.length; ++j) {
-                        if (title.indexOf(blackList[j]) !== -1) {
-                            console.log("包含指定字符串:" + blackList[j]);
-                            flag = true;
-                            break;
+                // var links = card.getElementsByTagName('a')
+                var videoCardInfoRight = card.querySelector('div.bili-video-card__info--right')
+                if (videoCardInfoRight) {
+                    var links = videoCardInfoRight.getElementsByTagName('a')
+                    if (links) {
+                        for (var i = 0; i < links.length; i++) {
+                            var title = links[i].textContent || links[i].innerText;
+                            var flag = false;
+                            for (var j = 0; j < blackList.length; ++j) {
+                                if (title.indexOf(blackList[j]) !== -1) {
+                                    console.log("包含指定字符串:" + blackList[j]);
+                                    flag = true;
+                                    break;
+                                }
+                            }
+                            if (flag) {
+                                card.remove();
+                                break;
+                            }
+                            // 标题缩减
+                            if (title.length > 15) {
+                                links[i].innerHTML = title.substring(0,15)
+                            }
                         }
-                    }
-                    if (flag) {
-                        card.remove();
-                        break;
-                    }
-                    // 标题缩减
-                    if (title.length > 15) {
-                        links[i].innerHTML = title.substring(0,15)
                     }
                 }
                 // 广告
@@ -106,7 +110,7 @@
                 }
 
             })
-        }
+        }        
 
 
         //--------------------------
