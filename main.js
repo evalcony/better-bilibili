@@ -195,6 +195,11 @@
         if (popLivePartElement) {
             popLivePartElement.remove();
         }
+        // 评论区
+        const commentElement = document.querySelector('.comment');
+        if (commentElement) {
+            commentElement.remove();
+        }
     }).observe(document.querySelector('body'), {
         childList: true,
         attributes: true,
