@@ -1,5 +1,5 @@
 // Better Bilibili
-// @author       github.com/jerryshell
+// @author       github.com/evalcony
 // @match        *://*.bilibili.com/*
 
 
@@ -7,14 +7,20 @@
 (() => {
     'use strict';
     new MutationObserver(() => {
-
         // black words list
         var blackList = [
             '队友','巅峰','对局','页游','国服','国标','压迫','大仙','破防','好看','好听','打野','逆风','射手','下头','戒','！',
-            '？','上头','尴尬','粉丝','哈哈','手法','逆风','逆境','王者','天花板','高端局','撞车','心理学','战力',"“",'新皮肤',
-            '国一','啦','阎王','绝望','教官','爸爸','儿子','一整天','消失','偷偷','新皮肤','天秀','对抗路'
+            '上头','尴尬','粉丝','哈哈','手法','逆风','逆境','王者','天花板','高端局','撞车','心理学','战力',"“",'新皮肤',
+            '国一','啦','阎王','绝望','教官','爸爸','儿子','一整天','消失','偷偷','新皮肤','天秀','对抗路','对线','VLOG','蹲',
+            '还手','长寿','冰冰','陈翔','中药','中医','法刺','降维打击','教学局','碾压','火舞','小乔','妲己','安琪拉','折磨',
+            '爆表','质疑','洗脚','乱斗','投降','啊啊','vlog','Vlog','有被','燃','惹','指挥','合体','被克','团战','综艺','暴击',
+            '观众','大小姐','秀','沙雕','王者','城府','出轨','伴侣','分手','eStar'
         ];
-
+        // 个人动态页面
+        var dynBlackList = [
+            '进口','转+评','拼多多','精美','券后','版型','官方店','库存','先拍','预告','治愈','投票','公示','VLOG','好货','实习生',
+            '直播','猫咪','党校','转发有奖','巡礼','韦小宝','预约','分享动态','恭喜'
+        ];
 
         // 动态、热门、频道
         const channelIconsElement = document.querySelector('div.channel-icons');
@@ -45,13 +51,13 @@
         // if (cardImageElement) {
         //     cardImageElement.remove();
         // }
-
         // 直播card
         const floorCardSingleCardElement = document.querySelector('div.floor-card.single-card');
         if (floorCardSingleCardElement) {
             floorCardSingleCardElement.remove();
         }
         // 直播card
+        //class="bili-live-card is-rcmd"
         const liveCardElement = document.querySelector('div.bili-live-card');
         if (liveCardElement) {
             liveCardElement.remove();
@@ -61,7 +67,6 @@
         if (videoCardInfoIconTextElement) {
             videoCardInfoIconTextElement.remove();
         }
-
         // 页面滑动板块
         const channelSwiperElement = document.querySelector('div.channel-swiper.channel-swiper-client');
         if (channelSwiperElement) {
@@ -73,7 +78,7 @@
             asideWrapElement.remove();
         }
 
-	// 根据屏蔽词过滤grid
+        // 根据屏蔽词过滤grid
         const cardInfoElementList = document.querySelectorAll('div.bili-video-card')
         if (cardInfoElementList) {
             cardInfoElementList.forEach(card => {
@@ -87,7 +92,7 @@
                             var flag = false;
                             for (var j = 0; j < blackList.length; ++j) {
                                 if (title.indexOf(blackList[j]) !== -1) {
-                                    console.log("包含指定字符串:" + blackList[j]);
+                                    console.log("包含指定字符串:" + blackList[j] + " title=" + title);
                                     flag = true;
                                     break;
                                 }
@@ -110,7 +115,7 @@
                 }
 
             })
-        }        
+        }
 
 
         //--------------------------
@@ -158,7 +163,7 @@
         // 删除视频弹幕发送
         const videoPlayerSendingElement = document.querySelector('div.bpx-player-sending-bar');
         if (videoPlayerSendingElement) {
-            videoPlayerSendingElement.remove();
+            //videoPlayerSendingElement.remove();
         }
         // 投诉
         const videoComplaintElement = document.querySelector('div.video-toolbar-right-item.toolbar-right-complaint');
@@ -200,6 +205,37 @@
         if (commentElement) {
             commentElement.remove();
         }
+
+        //-------------------------- 动态
+
+        // 个人动态
+        const biliDynItemsList = document.querySelectorAll('div.bili-dyn-item__main');
+        if (biliDynItemsList) {
+            biliDynItemsList.forEach(item => {
+                var richTextContent = item.querySelector('div.bili-rich-text__content')
+                if (richTextContent) {
+                    var textElementList = richTextContent.getElementsByTagName('span')
+                    if (textElementList) {
+                        for (var i = 0; i < textElementList.length; i++) {
+                            var text = textElementList[i].textContent || textElementList[i].innerText;
+                            var flag = false;
+                            for (var j = 0; j < dynBlackList.length; ++j) {
+                                if (text.indexOf(dynBlackList[j]) !== -1) {
+                                    console.log("包含指定字符串:" + dynBlackList[j]);
+                                    flag = true;
+                                    break;
+                                }
+                            }
+                            if (flag) {
+                                item.remove();
+                                break;
+                            }
+                        }
+                    }
+                }
+            })
+        }
+
     }).observe(document.querySelector('body'), {
         childList: true,
         attributes: true,
