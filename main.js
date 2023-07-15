@@ -7,7 +7,7 @@
 (() => {
     'use strict';
     new MutationObserver(() => {
-        // black words list
+        // 首页 屏蔽词 list
         var blackList = [
             '队友','巅峰','对局','页游','国服','国标','压迫','大仙','破防','好看','好听','打野','逆风','射手','下头','戒','！',
             '上头','尴尬','粉丝','哈哈','手法','逆风','逆境','王者','天花板','高端局','撞车','心理学','战力',"“",'新皮肤',
@@ -16,10 +16,11 @@
             '爆表','质疑','洗脚','乱斗','投降','啊啊','vlog','Vlog','有被','燃','惹','指挥','合体','被克','团战','综艺','暴击',
             '观众','大小姐','秀','沙雕','王者','城府','出轨','伴侣','分手','eStar'
         ];
-        // 个人动态页面
+        // 个人动态页面 屏蔽词 list
         var dynBlackList = [
             '进口','转+评','拼多多','精美','券后','版型','官方店','库存','先拍','预告','治愈','投票','公示','VLOG','好货','实习生',
-            '直播','猫咪','党校','转发有奖','巡礼','韦小宝','预约','分享动态','恭喜'
+            '直播','猫咪','党校','转发有奖','巡礼','韦小宝','预约','分享动态','恭喜','中奖','甄别','还有谁','炎热','万粉','手气','封面',
+            '即将','泰裤辣','安康','不见不散','分享视频','福利','转发','里程碑','UP主','快乐','按摩','冲牙器','实惠','便宜','豪礼'
         ];
 
         // 动态、热门、频道
@@ -206,12 +207,30 @@
             commentElement.remove();
         }
 
-        //-------------------------- 动态
 
+        //-------------------------- 动态
+        
         // 个人动态
         const biliDynItemsList = document.querySelectorAll('div.bili-dyn-item__main');
         if (biliDynItemsList) {
             biliDynItemsList.forEach(item => {
+                // 投票
+                var voteElement = item.querySelector('.bili-dyn-card-vote__body')
+                if (voteElement) {
+                    console.log('屏蔽投票')
+                    item.remove();
+                    return;
+                }
+
+                // 预约
+                var reserveElement = item.querySelector('.bili-dyn-card-reserve')
+                if (reserveElement) {
+                    console.log('屏蔽预约')
+                    item.remove();
+                    return;
+                }
+
+                // 正文
                 var richTextContent = item.querySelector('div.bili-rich-text__content')
                 if (richTextContent) {
                     var textElementList = richTextContent.getElementsByTagName('span')
@@ -235,6 +254,7 @@
                 }
             })
         }
+
 
     }).observe(document.querySelector('body'), {
         childList: true,
