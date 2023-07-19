@@ -1,10 +1,16 @@
-// Better Bilibili
-// @author       github.com/evalcony
-// @match        *://*.bilibili.com/*
-
-
-//---------------------
-(() => {
+// ==UserScript==
+// @name         bilibili净化
+// @namespace    evalcony
+// @version      0.3.0
+// @description  bilibili净化脚本，屏蔽各种不需要的页面元素、关键字、直播、广告
+// @author       evalcony
+// @match        https://*.bilibili.com/*
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=bilibili.com
+// @grant        none
+// @license      MIT
+// @homepageURL  https://github.com/evalcony/better-bilibili
+// ==/UserScript==
+ (() => {
     'use strict';
     new MutationObserver(() => {
         // 首页 屏蔽词 list
@@ -16,15 +22,16 @@
             '爆表','质疑','洗脚','乱斗','投降','啊啊','vlog','Vlog','有被','燃','惹','指挥','合体','被克','团战','综艺','暴击',
             '观众','大小姐','秀','沙雕','王者','城府','出轨','伴侣','分手','eStar','电竞','游戏区','宝可梦','特种兵','商务本','塔防',
             '反智','老6','虚幻','诗词','李若彤','考研政治','早恋','老婆','内八','冥想','举报','王德峰','张雪峰','李玟','神棍','老天爷','励志',
-            '瑞幸','周年庆','口袋妖怪','大镖客','斗破','女团','男朋友','爱情','解说','DOTA','猴子','爱 情'
+            '瑞幸','周年庆','口袋妖怪','大镖客','斗破','女团','男朋友','爱情','解说','DOTA','猴子','爱 情','暗黑','网聊','虎狼','妹妹','姐姐',
+            '厚礼蟹','种田','结婚','结了婚','读错','恋爱','情商','猫'
         ];
         // 个人动态页面 屏蔽词 list
         var dynBlackList = [
             '进口','转+评','拼多多','精美','券后','版型','官方店','库存','先拍','预告','治愈','投票','公示','VLOG','好货','实习生',
             '直播','猫咪','党校','转发有奖','巡礼','韦小宝','预约','分享动态','恭喜','中奖','甄别','还有谁','炎热','万粉','手气','封面',
-            '即将','泰裤辣','安康','不见不散','分享视频','福利','转发','里程碑','UP主','快乐','按摩','冲牙器','实惠','便宜','豪礼'
+            '即将','泰裤辣','安康','不见不散','分享视频','福利','转发','里程碑','UP主','快乐','按摩','冲牙器','实惠','便宜','豪礼',
+            '到手','内裤','好好选'
         ];
-
 
         // 动态、热门、频道
         const channelIconsElement = document.querySelector('div.channel-icons');
@@ -85,6 +92,7 @@
         // 根据屏蔽词过滤grid
         const cardInfoElementList = document.querySelectorAll('div.bili-video-card')
         if (cardInfoElementList) {
+            var max_len = 20
             cardInfoElementList.forEach(card => {
                 // var links = card.getElementsByTagName('a')
                 var videoCardInfoRight = card.querySelector('div.bili-video-card__info--right')
@@ -96,7 +104,7 @@
                             var flag = false;
                             for (var j = 0; j < blackList.length; ++j) {
                                 if (title.indexOf(blackList[j]) !== -1) {
-                                    console.log("包含指定字符串:" + blackList[j] + " title=" + title);
+                                    console.log("屏蔽词:" + blackList[j] + " title=" + title);
                                     flag = true;
                                     break;
                                 }
@@ -106,8 +114,8 @@
                                 break;
                             }
                             // 标题缩减
-                            if (title.length > 15) {
-                                links[i].innerHTML = title.substring(0,15)
+                            if (title.length > max_len) {
+                                links[i].innerHTML = title.substring(0, max_len)
                             }
                         }
                     }
@@ -164,11 +172,13 @@
         if (chargeBtnElement) {
             chargeBtnElement.remove();
         }
-        // 删除视频弹幕发送
-        const videoPlayerSendingElement = document.querySelector('div.bpx-player-sending-bar');
-        if (videoPlayerSendingElement) {
+
+        // //删除视频弹幕发送
+        //const videoPlayerSendingElement = document.querySelector('div.bpx-player-sending-bar');
+        //if (videoPlayerSendingElement) {
             //videoPlayerSendingElement.remove();
-        }
+        //}
+
         // 投诉
         const videoComplaintElement = document.querySelector('div.video-toolbar-right-item.toolbar-right-complaint');
         if (videoComplaintElement) {
@@ -187,7 +197,7 @@
         // 下方
         const leftContainerUnderPlayerElement = document.querySelector('div.left-container-under-player');
         if (leftContainerUnderPlayerElement) {
-            leftContainerUnderPlayerElement.remove();
+            //leftContainerUnderPlayerElement.remove();
         }
         //删除视频下方标签
         const tagWrapElement = document.querySelector('div.tag-wrap');
@@ -205,14 +215,13 @@
             popLivePartElement.remove();
         }
         // 评论区
-        const commentElement = document.querySelector('.comment');
-        if (commentElement) {
-            // commentElement.remove();
-        }
-
+        //const commentElement = document.querySelector('.comment');
+        //if (commentElement) {
+            //commentElement.remove();
+        //}
 
         //-------------------------- 动态
-        
+
         // 个人动态
         const biliDynItemsList = document.querySelectorAll('div.bili-dyn-item__main');
         if (biliDynItemsList) {
@@ -264,6 +273,29 @@
             rightElement.remove();
         }
 
+
+        // ---------------
+        // 直播房间-礼物栏
+        const giftControlPanelElement = document.querySelector('.gift-control-panel');
+        if (giftControlPanelElement) {
+            giftControlPanelElement.remove();
+        }
+
+        // 直播房间-视频下方区域
+        const sectionBlockElement = document.querySelector('.section-block');
+        if (sectionBlockElement) {
+            sectionBlockElement.remove();
+        }
+        // 直播房间-视频上方信息区
+        const headInfoLowerRowElement = document.querySelector('.head-info-section .lower-row');
+        if (headInfoLowerRowElement) {
+            headInfoLowerRowElement.remove();
+        }
+        // 直播房间-页面底部bilibili公司信息区域
+        const linkFooterElement = document.querySelector('#link-footer-vm');
+        if (linkFooterElement) {
+            linkFooterElement.remove();
+        }
 
     }).observe(document.querySelector('body'), {
         childList: true,
