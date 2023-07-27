@@ -23,14 +23,14 @@
             '观众','大小姐','秀','沙雕','王者','城府','出轨','伴侣','分手','eStar','电竞','游戏区','宝可梦','特种兵','商务本','塔防',
             '反智','老6','虚幻','诗词','李若彤','考研政治','早恋','老婆','内八','冥想','举报','王德峰','张雪峰','李玟','神棍','老天爷','励志',
             '瑞幸','周年庆','口袋妖怪','大镖客','斗破','女团','男朋友','爱情','解说','DOTA','猴子','爱 情','暗黑','网聊','虎狼','妹妹','姐姐',
-            '厚礼蟹','种田','结婚','结了婚','读错','恋爱','情商','猫'
+            '厚礼蟹','种田','结婚','结了婚','读错','恋爱','情商','猫','哭死'
         ];
         // 个人动态页面 屏蔽词 list
         var dynBlackList = [
             '进口','转+评','拼多多','精美','券后','版型','官方店','库存','先拍','预告','治愈','投票','公示','VLOG','好货','实习生',
             '直播','猫咪','党校','转发有奖','巡礼','韦小宝','预约','分享动态','恭喜','中奖','甄别','还有谁','炎热','万粉','手气','封面',
             '即将','泰裤辣','安康','不见不散','分享视频','福利','转发','里程碑','UP主','快乐','按摩','冲牙器','实惠','便宜','豪礼',
-            '到手','内裤','好好选'
+            '到手','内裤','好好选','低价','赠品','拍2件','亓','元'
         ];
 
         // 动态、热门、频道
@@ -220,7 +220,7 @@
             //commentElement.remove();
         //}
 
-        //-------------------------- 动态
+        //-------------------------- 动态页面
 
         // 个人动态
         const biliDynItemsList = document.querySelectorAll('div.bili-dyn-item__main');
@@ -274,7 +274,7 @@
         }
 
 
-        // ---------------
+        // --------------- 直播间
         // 直播房间-礼物栏
         const giftControlPanelElement = document.querySelector('.gift-control-panel');
         if (giftControlPanelElement) {
@@ -295,6 +295,58 @@
         const linkFooterElement = document.querySelector('#link-footer-vm');
         if (linkFooterElement) {
             linkFooterElement.remove();
+        }
+        // 直播房间-bilibili娘
+        const harunaElement = document.querySelector('.haruna-ctnr');
+        if (harunaElement) {
+            harunaElement.remove();
+        }
+        // 直播房间-pk
+        const awesomePkBoxElement = document.querySelector('.awesome-pk-box');
+        if (awesomePkBoxElement) {
+            awesomePkBoxElement.remove();
+        }
+        // 直播房间-pk
+        const pkProcessBoxElement = document.querySelector('.pk-process-box');
+        if (pkProcessBoxElement) {
+            pkProcessBoxElement.remove();
+        }
+        // 直播房间-pk结果
+        const pkAnimationBoxElement = document.querySelector('.pk-animation-box');
+        if (pkAnimationBoxElement) {
+            pkAnimationBoxElement.remove();
+        }
+        // 直播房间-横幅特效
+        const announcementElement = document.querySelector('.announcement-wrapper');
+        if (announcementElement) {
+            announcementElement.remove();
+        }
+        // 直播房间-弹幕欢迎特效
+        const bubbleListElement = document.querySelector('.bubble-list');
+        if (bubbleListElement) {
+            bubbleListElement.remove();
+        }
+        // 直播房间-粉丝牌
+        const fansMedalItemElement = document.querySelector('.fans-medal-item-ctnr');
+        if (fansMedalItemElement) {
+            fansMedalItemElement.remove();
+        }
+        const wealthMedalElement = document.querySelector('.wealth-medal-ctnr');
+        if (wealthMedalElement) {
+            wealthMedalElement.remove();
+        }
+        const rankIconElement = document.querySelector('.rank-icon');
+        if (rankIconElement) {
+            rankIconElement.remove();
+        }
+        const titleLabelElement = document.querySelector('.title-label');
+        if (titleLabelElement) {
+            titleLabelElement.remove();
+        }
+        // 直播房间-舰长列表
+        const rankListElement = document.querySelector('#rank-list-ctnr-box');
+        if (rankListElement) {
+            rankListElement.remove();
         }
 
     }).observe(document.querySelector('body'), {
