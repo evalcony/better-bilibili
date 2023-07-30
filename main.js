@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bilibili净化
 // @namespace    evalcony
-// @version      0.3.0
+// @version      0.4.1
 // @description  bilibili净化脚本，屏蔽各种不需要的页面元素、关键字、直播、广告
 // @author       evalcony
 // @match        https://*.bilibili.com/*
@@ -218,6 +218,12 @@
         //const commentElement = document.querySelector('.comment');
         //if (commentElement) {
             //commentElement.remove();
+        //}
+
+        // 右侧视频推荐列表
+        //const recommendListElement = document.querySelector('.recommend-list-v1');
+        //if (recommendListElement) {
+            //recommendListElement.remove();
         //}
 
         //-------------------------- 动态页面
