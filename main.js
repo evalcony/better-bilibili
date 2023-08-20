@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         bilibili净化
 // @namespace    evalcony
-// @version      0.4.1
+// @version      0.4.4
 // @description  bilibili净化脚本，屏蔽各种不需要的页面元素、关键字、直播、广告
 // @author       evalcony
 // @match        https://*.bilibili.com/*
@@ -22,16 +22,18 @@
             '爆表','质疑','洗脚','乱斗','投降','啊啊','vlog','Vlog','有被','燃','惹','指挥','合体','被克','团战','综艺','暴击',
             '观众','大小姐','秀','沙雕','王者','城府','出轨','伴侣','分手','eStar','电竞','游戏区','宝可梦','特种兵','商务本','塔防',
             '反智','老6','虚幻','诗词','李若彤','考研政治','早恋','老婆','内八','冥想','举报','王德峰','张雪峰','李玟','神棍','老天爷','励志',
-            '瑞幸','周年庆','口袋妖怪','大镖客','斗破','女团','男朋友','爱情','解说','DOTA','猴子','爱 情','暗黑','网聊','虎狼','妹妹','姐姐',
-            '厚礼蟹','种田','结婚','结了婚','读错','恋爱','情商','猫','哭死'
+            '瑞幸','周年庆','口袋妖怪','大镖客','斗破','女团','男朋友','爱情','DOTA','猴子','爱 情','暗黑','网聊','虎狼','妹妹','姐姐',
+            '厚礼蟹','种田','结婚','结了婚','读错','恋爱','情商','猫','哭死','党政','炸裂','劳斯莱斯','cp','CP','心巴','怀孕','贩'
         ];
         // 个人动态页面 屏蔽词 list
         var dynBlackList = [
             '进口','转+评','拼多多','精美','券后','版型','官方店','库存','先拍','预告','治愈','投票','公示','VLOG','好货','实习生',
             '直播','猫咪','党校','转发有奖','巡礼','韦小宝','预约','分享动态','恭喜','中奖','甄别','还有谁','炎热','万粉','手气','封面',
             '即将','泰裤辣','安康','不见不散','分享视频','福利','转发','里程碑','UP主','快乐','按摩','冲牙器','实惠','便宜','豪礼',
-            '到手','内裤','好好选','低价','赠品','拍2件','亓','元'
+            '到手','内裤','好好选','低价','赠品','拍2件','亓','元','晚安','国服','感谢','赞助','转评','送','特价','款式'
         ];
+
+        // ---------------------------------------------------------- 分割线 -----------------------------------------------------------------
 
         // 动态、热门、频道
         const channelIconsElement = document.querySelector('div.channel-icons');
@@ -145,7 +147,7 @@
         // 菜单栏
         const leftEntryElement = document.querySelector('ul.left-entry');
         if (leftEntryElement) {
-            leftEntryElement.remove();
+            //leftEntryElement.remove();
         }
         // 菜单栏右边
         const rightEntryVipElement = document.querySelector('a.right-entry__outside.right-entry--vip');
@@ -219,14 +221,32 @@
         //if (commentElement) {
             //commentElement.remove();
         //}
+        
+        // 说明：bibili 这里做了关联，屏蔽了推荐列表，会导致选集列表数据无法展示，所以要屏蔽就都屏蔽
+        // 这里改动这里的 false / true 即可
+        // false: 不屏蔽
+        // true: 屏蔽
+        // 推荐设置为 false。
+        if (false) {
+            // 右侧视频选集列表
+            const videoPageCardElement = document.querySelector('#multi_page');
+            if (videoPageCardElement) {
+                videoPageCardElement.remove();
+            }
+            // 右侧视频推荐列表
+            const recommendListElement = document.querySelector('.recommend-list-v1');
+            if (recommendListElement) {
+                recommendListElement.remove();
+            }
+        }
 
-        // 右侧视频推荐列表
-        //const recommendListElement = document.querySelector('.recommend-list-v1');
-        //if (recommendListElement) {
-            //recommendListElement.remove();
-        //}
+        // 视频播放中出现的问题面板
+        const bpxPlayerCmdDmElement = document.querySelector('.bpx-player-cmd-dm-inside');
+        if (bpxPlayerCmdDmElement) {
+            bpxPlayerCmdDmElement.remove();
+        }
 
-        //-------------------------- 动态页面
+        //-------------------------- 动态
 
         // 个人动态
         const biliDynItemsList = document.querySelectorAll('div.bili-dyn-item__main');
@@ -353,6 +373,11 @@
         const rankListElement = document.querySelector('#rank-list-ctnr-box');
         if (rankListElement) {
             rankListElement.remove();
+        }
+        // 直播房间-小游戏
+        const gameElement = document.querySelector('#game-id');
+        if (gameElement) {
+            gameElement.remove();
         }
 
     }).observe(document.querySelector('body'), {
