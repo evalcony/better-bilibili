@@ -325,9 +325,15 @@
         }
 
         // 右侧话题栏
-        const stickyElement = document.querySelector('.sticky');
-        if (stickyElement) {
-            stickyElement.remove();
+        const biliDynTopicBoxElement = document.querySelector('.bili-dyn-topic-box');
+        if (biliDynTopicBoxElement) {
+            biliDynTopicBoxElement.remove();
+        }
+        
+        // 右侧话题栏banner
+        const dynBannerElement = document.querySelector('.bili-dyn-banner');
+        if (dynBannerElement) {
+            dynBannerElement.remove();
         }
 
 
