@@ -20,14 +20,12 @@
         if (event.key === '/') {
             // Prevent the default action (e.g., typing '/' in an input field)
             event.preventDefault();
-
             const searchInput = document.querySelector('.nav-search-input');
             const searchInput2 = document.querySelector('.search-input-el')
-
             // Focus the input element
-            if (searchInput) {
+            if (searchInput2 == null) {
                 searchInput.focus();
-            } else if (searchInput2) {
+            } else {
                 searchInput2.focus();
             }
         }
